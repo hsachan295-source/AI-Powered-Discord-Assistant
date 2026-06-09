@@ -16,72 +16,46 @@ The following Mermaid diagram shows the complete flow of data and execution acro
 
 ```mermaid
 flowchart LR
-    %% ─── Node Definitions ───────────────────────────────────────────────────
+    USER(["👤 User / Client"]):::userStyle
 
-    USER(["👤 User / Client"])
-
-    subgraph DISCORD_LAYER ["  🟣 Discord Platform Layer  "]
-        direction TB
-        DS["🖥️ Discord Server"]
-        BOT["🤖 Discord Bot\n── bot.py ──\ndiscord.Client"]
+    subgraph DISCORD_LAYER ["🟣 Discord Platform"]
+        DS["🖥️ Discord Server"]:::platformStyle
+        BOT["🤖 Discord Bot<br/>bot.py"]:::platformStyle
     end
 
-    subgraph AGENT_CORE ["  🟡 LangChain Agent Core  "]
-        direction TB
-        AGENT["🧠 LangChain Agent\n── agent.py ──\nLangGraph ReAct"]
-        DECISION{{"⚡ Tool\nRequired?"}}
+    subgraph AGENT_CORE ["🟡 LangChain Agent Core"]
+        AGENT["🧠 LangChain Agent<br/>agent.py"]:::agentStyle
+        DECISION{{"⚡ Tool Required?"}}:::decisionStyle
     end
 
-    subgraph TOOL_LAYER ["  🟢 Tool Layer  "]
-        direction TB
-        TAVILY["🔍 Tavily Search Tool\n── surInterNet() ──\nReal-time Web Search"]
+    subgraph TOOL_LAYER ["🟢 Tool Layer"]
+        TAVILY["🔍 Tavily Search<br/>surInterNet"]:::toolStyle
     end
 
-    subgraph LLM_LAYER ["  🔵 LLM Layer  "]
-        direction TB
-        GEMINI[("🌟 Google Gemini\n── gemini-3.5-flash ──\nLLM Inference")]
+    subgraph LLM_LAYER ["🔵 LLM Layer"]
+        GEMINI[("🌟 Google Gemini<br/>gemini-3.5-flash")]:::llmStyle
     end
 
-    %% ─── Main Flow ──────────────────────────────────────────────────────────
+    USER     -->|"1. Sends message"| DS
+    DS       -->|"2. Routes to bot"| BOT
+    BOT      -->|"3. Captures message"| AGENT
+    AGENT    -->|"4. Analyzes query"| DECISION
+    DECISION -->|"5a. Tool needed"| TAVILY
+    TAVILY   -->|"6. Web search"| TAVILY
+    TAVILY   -->|"7. Returns results"| AGENT
+    DECISION -->|"5b. Direct to LLM"| GEMINI
+    AGENT    -->|"8. Sends context"| GEMINI
+    GEMINI   -->|"9. Generates response"| AGENT
+    AGENT    -->|"10. Returns answer"| BOT
+    BOT      -->|"11. Sends reply"| DS
+    DS       -->|"12. Delivers to user"| USER
 
-    USER      -->|"① Sends message"| DS
-    DS        -->|"② Routes to bot"| BOT
-    BOT       -->|"③ Captures & forwards"| AGENT
-    AGENT     -->|"④ Analyzes query"| DECISION
-
-    %% ─── Tool Branch ────────────────────────────────────────────────────────
-
-    DECISION  -->|"⑤ YES — Tool needed"| TAVILY
-    TAVILY    -.->|"⑥ Searches internet"| TAVILY
-    TAVILY    -->|"⑦ Returns results"| AGENT
-
-    %% ─── LLM Branch ────────────────────────────────────────────────────────
-
-    DECISION  -->|"⑤ NO — Direct LLM"| GEMINI
-    AGENT     -->|"⑧ Sends context + query"| GEMINI
-    GEMINI    -->|"⑨ Generates response"| AGENT
-
-    %% ─── Response Flow ──────────────────────────────────────────────────────
-
-    AGENT     -->|"⑩ Returns answer"| BOT
-    BOT       -->|"⑪ Formats & sends reply"| DS
-    DS        -->|"⑫ Delivers to user"| USER
-
-    %% ─── Styling ────────────────────────────────────────────────────────────
-
-    classDef userStyle      fill:#dae8fc,stroke:#6c8ebf,stroke-width:3px,color:#1a1a2e,font-weight:bold
-    classDef platformStyle  fill:#e1d5e7,stroke:#9673a6,stroke-width:2px,color:#1a1a2e
-    classDef agentStyle     fill:#fff2cc,stroke:#d6b656,stroke-width:3px,color:#1a1a2e,font-weight:bold
-    classDef decisionStyle  fill:#ffe6cc,stroke:#d79b00,stroke-width:3px,color:#1a1a2e,font-weight:bold
-    classDef toolStyle      fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:#1a1a2e
-    classDef llmStyle       fill:#dae8fc,stroke:#0050ef,stroke-width:3px,color:#1a1a2e,font-weight:bold
-
-    class USER              userStyle
-    class DS,BOT            platformStyle
-    class AGENT             agentStyle
-    class DECISION          decisionStyle
-    class TAVILY            toolStyle
-    class GEMINI            llmStyle
+    classDef userStyle fill:#dae8fc,stroke:#6c8ebf,stroke-width:3px,color:#000000
+    classDef platformStyle fill:#e1d5e7,stroke:#9673a6,stroke-width:2px,color:#000000
+    classDef agentStyle fill:#fff2cc,stroke:#d6b656,stroke-width:3px,color:#000000
+    classDef decisionStyle fill:#ffe6cc,stroke:#d79b00,stroke-width:3px,color:#000000
+    classDef toolStyle fill:#d5e8d4,stroke:#82b366,stroke-width:2px,color:#000000
+    classDef llmStyle fill:#dae8fc,stroke:#0050ef,stroke-width:3px,color:#000000
 ```
 
 ---
