@@ -1,12 +1,6 @@
-# 🤖 AI-Powered Discord Assistant
+# 1. Project Flow Diagram (Horizontal Block Flow)
 
-An intelligent, agent-based Discord bot that uses state-of-the-art Generative AI models. The bot listens to user messages, understands context, and uses specialized tools to surf the web and generate images dynamically.
-
----
-
-## 🗺️ System Architecture
-
-Here is the system architecture showing how data flows between the User, Discord Bot, LangChain Agent, and its tools:
+The following Mermaid diagram shows the flow of data and execution. It contains the **User (Actor)** and **Discord Client / Tools (Service)** symbols, displaying the process from left to right.
 
 ![System Architecture](architecture.png)
 
@@ -15,23 +9,23 @@ Here is the system architecture showing how data flows between the User, Discord
 
 ```mermaid
 graph LR
-    User["👤 User (Discord Client)"] -->|1. Sends Message| Bot["💬 Discord Bot (bot.py)"]
-    Bot -->|2. Invokes Agent (ainvoke)| Agent["🤖 LangChain Agent (agent.py)"]
+    User["👤 User / Client"] -->|1. Sends Message| Bot["💬 Discord Bot<br/>(bot.py)"]
+    Bot -->|2. Invokes Agent (ainvoke)| Agent["🤖 LangChain Agent<br/>(gemini-3.5-flash)"]
     
-    Agent -->|3a. Queries Web| Tavily["🔍 Tavily Web Search (surInterNet)"]
-    Tavily -.->|4a. Results| Agent
+    Agent -->|3a. Trigger Search| Tavily["🔍 surInterNet Tool<br/>(Tavily Web Search)"]
+    Tavily -.->|4a. Return Search Results| Agent
     
-    Agent -->|3b. Requests Image| OpenAI["🎨 Image Gen (generateAndSendImage)"]
-    OpenAI -.->|4b. Uploads Image File| Bot
+    Agent -->|3b. Trigger Gen| ImageGen["🎨 Image Gen Tool<br/>(generateAndSendImage)"]
+    ImageGen -.->|4b. Direct Upload File| Bot
     
-    Agent -.->|5. Returns Status| Bot
-    Bot -.->|6. Delivers Reply| User
+    Agent -.->|5. Send Text Reply| Bot
+    Bot -.->|6. Final Response| User
 
-    style User fill:#7289da,stroke:#5b73c7,stroke-width:2px,color:#fff
-    style Bot fill:#5865F2,stroke:#4752C4,stroke-width:2px,color:#fff
-    style Agent fill:#F4B400,stroke:#DBA100,stroke-width:2px,color:#fff
-    style Tavily fill:#0F9D58,stroke:#0B7F46,stroke-width:2px,color:#fff
-    style OpenAI fill:#DB4437,stroke:#C23B2F,stroke-width:2px,color:#fff
+    style User fill:#dae8fc,stroke:#6c8ebf,stroke-width:2px,color:#000
+    style Bot fill:#e1d5e7,stroke:#9673a6,stroke-width:2px,color:#000
+    style Agent fill:#fff2cc,stroke:#d6b656,stroke-width:2px,color:#000
+    style Tavily fill:#fff2cc,stroke:#d6b656,stroke-width:2px,color:#000
+    style ImageGen fill:#fff2cc,stroke:#d6b656,stroke-width:2px,color:#000
 ```
 
 </details>
