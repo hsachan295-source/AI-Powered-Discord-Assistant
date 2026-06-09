@@ -38,8 +38,9 @@ graph LR
 
 ### 📈 Interactive draw.io Diagram
 We have also included a fully styled edit-ready draw.io diagram file:
-- **File Link:** [architecture.drawio](file:///d:/Data%20science%20course/12-Generative%20AI/project-AI-powered-discord-assistant-10/architecture.drawio)
-- **How to edit/view:** Open [draw.io (diagrams.net)](https://app.diagrams.net/) and drag and drop the `architecture.drawio` file onto the canvas to view or modify it.
+- **File Link:** [architecture.drawio](architecture.drawio)
+- **Direct Online Viewer:** [Open in diagrams.net / draw.io](https://app.diagrams.net/?showEdit=1&open=https%3A%2F%2Fraw.githubusercontent.com%2Fhsachan295-source%2FAI-Powered-Discord-Assistant%2Fmain%2Farchitecture.drawio)
+- **How to edit/view locally:** Download the `architecture.drawio` file, open [draw.io (diagrams.net)](https://app.diagrams.net/), and drag and drop the file onto the canvas to view or modify it.
 
 ---
 
@@ -56,8 +57,8 @@ We have also included a fully styled edit-ready draw.io diagram file:
 
 The project consists of two core files:
 
-*   **[bot.py](file:///d:/Data%20science%20course/12-Generative%20AI/project-AI-powered-discord-assistant-10/bot.py):** Initializes the Discord client, listens for incoming messages, and passes them to the LangChain Agent.
-*   **[agent.py](file:///d:/Data%20science%20course/12-Generative%20AI/project-AI-powered-discord-assistant-10/agent.py):** Defines the LangChain agent configuration, custom tools (`surInterNet` and `generateAndSendImage`), and binds the models.
+*   **[bot.py](bot.py):** Initializes the Discord client, listens for incoming messages, and passes them to the LangChain Agent.
+*   **[agent.py](agent.py):** Defines the LangChain agent configuration, custom tools (`surInterNet` and `generateAndSendImage`), and binds the models.
 
 ---
 
