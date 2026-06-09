@@ -10,37 +10,23 @@ Below is the horizontal block diagram showing how the data flows from the User t
 
 ```mermaid
 graph LR
-    %% Direction setup
-    direction LR
-
-    %% Custom styling
-    classDef userStyle fill:#7289da,stroke:#5b73c7,stroke-width:2px,color:#ffffff,font-weight:bold;
-    classDef botStyle fill:#5865F2,stroke:#4752C4,stroke-width:2px,color:#ffffff,font-weight:bold;
-    classDef agentStyle fill:#F4B400,stroke:#DBA100,stroke-width:2px,color:#ffffff,font-weight:bold;
-    classDef toolSearchStyle fill:#0F9D58,stroke:#0B7F46,stroke-width:2px,color:#ffffff,font-weight:bold;
-    classDef toolImageStyle fill:#DB4437,stroke:#C23B2F,stroke-width:2px,color:#ffffff,font-weight:bold;
-
-    %% Nodes
-    User["👤 User (Discord Client)"]:::userStyle
-    Bot["💬 Discord Bot<br/>(bot.py)"]:::botStyle
-    Agent["🤖 LangChain Agent<br/>(agent.py)"]:::agentStyle
-    Tavily["🔍 Tavily Web Search<br/>(surInterNet)"]:::toolSearchStyle
-    OpenAI["🎨 Image Gen Tool<br/>(generateAndSendImage)"]:::toolImageStyle
-
-    %% Connections
-    User -->|1. Sends Message| Bot
-    Bot -->|2. Invokes Agent (ainvoke)| Agent
+    User["👤 User (Discord Client)"] -->|1. Sends Message| Bot["💬 Discord Bot (bot.py)"]
+    Bot -->|2. Invokes Agent (ainvoke)| Agent["🤖 LangChain Agent (agent.py)"]
     
-    %% Tool execution
-    Agent -->|3a. Queries Web| Tavily
-    Tavily -.->|4a. Returns Search Results| Agent
+    Agent -->|3a. Queries Web| Tavily["🔍 Tavily Web Search (surInterNet)"]
+    Tavily -.->|4a. Results| Agent
     
-    Agent -->|3b. Requests Image| OpenAI
-    OpenAI -.->|4b. Uploads Image File (Async)| Bot
+    Agent -->|3b. Requests Image| OpenAI["🎨 Image Gen (generateAndSendImage)"]
+    OpenAI -.->|4b. Uploads Image File| Bot
     
-    %% Final status and response
-    Agent -.->|5. Returns Status/Text Reply| Bot
-    Bot -.->|6. Delivers Text & Media Reply| User
+    Agent -.->|5. Returns Status| Bot
+    Bot -.->|6. Delivers Reply| User
+
+    style User fill:#7289da,stroke:#5b73c7,stroke-width:2px,color:#fff
+    style Bot fill:#5865F2,stroke:#4752C4,stroke-width:2px,color:#fff
+    style Agent fill:#F4B400,stroke:#DBA100,stroke-width:2px,color:#fff
+    style Tavily fill:#0F9D58,stroke:#0B7F46,stroke-width:2px,color:#fff
+    style OpenAI fill:#DB4437,stroke:#C23B2F,stroke-width:2px,color:#fff
 ```
 
 ### 📈 Interactive draw.io Diagram
