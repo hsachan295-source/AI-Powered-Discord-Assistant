@@ -14,6 +14,8 @@
 
 The following Mermaid diagram shows the complete flow of data and execution across all system components. It contains the **User (Actor)**, **Platform Layer**, **AI Agent Core**, **Tool Layer**, and **External API** symbols — displaying the full process from left to right.
 
+<img src="architecture.png" width="100%" alt="System Architecture — AI-Powered Discord Assistant" />
+
 ```mermaid
 flowchart LR
     USER(["👤 User / Client"]):::userStyle
@@ -163,7 +165,7 @@ A fully styled, editable architecture diagram is included:
 |---|---|
 | 📁 **File** | [architecture.drawio](architecture.drawio) |
 | 🌐 **Open Online** | [Open in diagrams.net](https://app.diagrams.net/?showEdit=1&open=https%3A%2F%2Fraw.githubusercontent.com%2Fhsachan295-source%2FAI-Powered-Discord-Assistant%2Fmain%2Farchitecture.drawio) |
-| 🖼️ **Static Image** | [architecture.png](architecture.png) |
+| 🖼️ **Static Image** | <img src="architecture.png" width="100%" alt="System Architecture — AI-Powered Discord Assistant" /> |
 
 ---
 
