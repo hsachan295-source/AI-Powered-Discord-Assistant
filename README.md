@@ -4,9 +4,14 @@ An intelligent, agent-based Discord bot that uses state-of-the-art Generative AI
 
 ---
 
-## 🗺️ System Architecture (Horizontal Block Diagram)
+## 🗺️ System Architecture
 
-Below is the horizontal block diagram showing how the data flows from the User to the Discord Bot, the Agent, and its tools, and back to the User.
+Here is the system architecture showing how data flows between the User, Discord Bot, LangChain Agent, and its tools:
+
+![System Architecture](architecture.png)
+
+<details>
+<summary>💻 Click to expand Mermaid Fallback Diagram</summary>
 
 ```mermaid
 graph LR
@@ -28,6 +33,8 @@ graph LR
     style Tavily fill:#0F9D58,stroke:#0B7F46,stroke-width:2px,color:#fff
     style OpenAI fill:#DB4437,stroke:#C23B2F,stroke-width:2px,color:#fff
 ```
+
+</details>
 
 ### 📈 Interactive draw.io Diagram
 We have also included a fully styled edit-ready draw.io diagram file:
